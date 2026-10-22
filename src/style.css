@@ -1,0 +1,116 @@
+:root {
+  --night: #0a0608;
+  --night-soft: #150a12;
+  --blood: #c42a3b;
+  --blood-deep: #7a1220;
+  --bone: #e9dfcc;
+  --bone-dim: #a89d8a;
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'Jost', 'Helvetica Neue', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(#271440 0%, #170b25 38%, var(--night) 78%) fixed;
+  color: var(--bone);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+::selection { background: var(--blood); color: var(--bone); }
+
+a { color: inherit; text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Shared primitives */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--blood);
+}
+.eyebrow::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--blood);
+  border-radius: 2px;
+  background: var(--blood-deep);
+  color: var(--bone);
+  font: inherit;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease);
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--blood);
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:hover::before { transform: translateY(0); }
+
+a:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--blood);
+  outline-offset: 4px;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 5;
+}
+
+/* v-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 1.1s var(--ease) var(--reveal-delay, 0ms),
+    transform 1.1s var(--ease) var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}

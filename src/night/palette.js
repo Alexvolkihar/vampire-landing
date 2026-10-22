@@ -1,0 +1,7 @@
+export const SILHOUETTE = '#07040a'
+export const BAT_COLOR = '#0b0612'
+export const WINDOW_GLOW = '#f3b04a'
+export const MOON_LIGHT = '#f1ead7'
+export const MOON_SHADE = 'rgba(120, 108, 130, 0.35)'
+export const MIST_RGB = '196, 182, 214'
+export const STAR_RGB = '236, 228, 255'
